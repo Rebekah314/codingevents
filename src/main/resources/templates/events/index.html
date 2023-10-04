@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymelef.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-</head>
+<head th:replace="fragments :: head"></head>
 <body>
-    <th:block th:each="event : ${events}">
-        <p th:text="${event}">Event Name</p>
-    </th:block>
+    <h1>All Events</h1>
+        <ul>
+            <th:block th:each="event : ${events}">
+                <li th:text="${event}">Event Name</li>
+            </th:block>
+        </ul>
+    <nav th:replace="fragments :: navigation"/>
 </body>
+
 </html>
