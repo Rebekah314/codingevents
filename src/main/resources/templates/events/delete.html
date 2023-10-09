@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymelef.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+<header>
+    <nav th:replace="fragments :: navigation"/>
+</header>
+<form method="post">
+
+        <th:block th:each="event : ${events}">
+            <div class="input-group mb-3">
+                <div >
+                    <input class="form-check-input" type="checkbox" name="eventIds" th:value="${event.id}" aria-label="Checkbox for following text input">
+                    <label th:text="${event.name}"></label>
+                </div>
+            </div>
+        </th:block>
+
+
+    <input type="submit" value="Delete" class="btn btn-danger">
+</form>
+
+</body>
+</html>

@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymelef.org/">
 <head th:replace="fragments :: head"></head>
-<body>
-    <h1>All Events</h1>
-        <ul>
+<body class="container">
+
+    <header>
+        <nav th:replace="fragments :: navigation"/>
+    </header>
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Location</th>
+            </tr>
             <th:block th:each="event : ${events}">
-                <li th:text="${event}">Event Name</li>
+                <tr>
+                    <td th:text="${event.id}"></td>
+                    <td th:text="${event.name}"></td>
+                    <td th:text="${event.description}"></td>
+                    <td>123 Sesame St.</td>
+                </tr>
             </th:block>
-        </ul>
-    <nav th:replace="fragments :: navigation"/>
+        </table>
+
 </body>
 
 </html>
