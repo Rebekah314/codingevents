@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
-@RequestMapping("events")
+@RequestMapping("/events")
 public class EventController {
 
     @GetMapping
@@ -20,36 +20,47 @@ public class EventController {
         model.addAttribute("title", "All Events");
         return "events/index";
     }
-
-    //lives at /events/create
-    @GetMapping("create")
+    @GetMapping("/create")
     public String renderCreateEventForm(Model model) {
         model.addAttribute("title", "Create Event");
         return "events/create";
     }
-    @PostMapping("create")
+    @PostMapping("/create")
     public String processCreateEventForm(@ModelAttribute Event newEvent) {
         EventData.add(newEvent);
         return "redirect:/events";
     }
-
-    @GetMapping("delete")
+    @GetMapping("/delete")
     public String displayDeleteEventForm(Model model) {
         model.addAttribute("title", "Delete Events");
         model.addAttribute("events", EventData.getAll());
         return "events/delete";
     }
-
-    @PostMapping("delete")
+    @PostMapping("/delete")
     public String processDeleteEventsForm(@RequestParam(required=false) int[] eventIds) {
         if (eventIds != null) {
-
             for (int id : eventIds) {
                 EventData.remove(id);
             }
         }
         return "redirect:/events";
+    }
+    @GetMapping("/edit/{eventId}")
+    public String displayEditForm(Model model, @PathVariable int eventId) {
+        Event eventToEdit = EventData.getById(eventId);
+        model.addAttribute("event", eventToEdit);
+        String editFormTitle = "Edit Event " + eventToEdit.getName() +
+                "(id: " + eventId + ")";
+        model.addAttribute("title", editFormTitle);
+        return "events/edit";
+    }
+    @PostMapping("/edit")
+    public String processEditForm(int eventId, String name, String description) {
+        Event eventToEdit = EventData.getById(eventId);
+        eventToEdit.setName(name);
+        eventToEdit.setDescription(description);
 
+        return "redirect:/events";
     }
 
 }

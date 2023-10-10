@@ -11,14 +11,16 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Location</th>
+                <th>Edit Event</th>
             </tr>
             <th:block th:each="event : ${events}">
                 <tr>
                     <td th:text="${event.id}"></td>
                     <td th:text="${event.name}"></td>
                     <td th:text="${event.description}"></td>
-                    <td>123 Sesame St.</td>
+                    <td>
+                        <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
+                    </td>
                 </tr>
             </th:block>
         </table>
